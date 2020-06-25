@@ -1,0 +1,12 @@
+[Unit]
+Description=Data producer service
+
+[Service]
+ExecStart=/home/dinomite/bin/rpi-data-producer.py
+Restart=always
+RestartSec=10
+StartLimitInterval=4
+
+[Install]
+WantedBy=multi-user.target
+
