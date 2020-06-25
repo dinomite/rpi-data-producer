@@ -2,7 +2,7 @@
 Description=Data producer service
 
 [Service]
-ExecStart=/home/dinomite/bin/rpi-data-producer.py
+ExecStart=/home/pi/rpi-data-producer/temp-http-server.py
 Restart=always
 RestartSec=10
 StartLimitInterval=4
