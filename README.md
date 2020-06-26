@@ -1,5 +1,5 @@
 # Startup script
-Goes in /etc/systemd/system/multi-user.target.wants/data-producer.service
+Link to /etc/systemd/system/data-producer.service
 
 Then
 
