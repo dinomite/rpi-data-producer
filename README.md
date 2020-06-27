@@ -1,3 +1,8 @@
+Sensor to HTTP
+
+# Prerequisites
+w1thermsensor
+
 # Startup script
 Link to /etc/systemd/system/data-producer.service
 
