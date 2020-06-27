@@ -6,6 +6,7 @@ ExecStart=/home/pi/rpi-data-producer/temp-http-server.py
 Restart=always
 RestartSec=10
 StartLimitInterval=4
+User=pi
 
 [Install]
 WantedBy=multi-user.target
