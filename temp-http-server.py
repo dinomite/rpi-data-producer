@@ -34,7 +34,7 @@ nodes = {
         'attic_temp': ("IntSensor", lambda: round(get_1w_sensor("0416561dedff").get_temperature(W1ThermSensor.DEGREES_F) - 3))
     },
     'devices': {
-        'cpu_temp': ("DoubleSensor", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
+        'rpi_zero_cpu_temp': ("DoubleSensor", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
     }
 }
 
