@@ -23,18 +23,18 @@ class HttpHandler(BaseHTTPRequestHandler):
         response = {}
         for node_name, sensors in nodes.items():
             response[node_name] = {}
-            for sensor_name, value_lambda in nodes[node_name].items():
-                response[node_name][sensor_name] = value_lambda()
+            for sensor_name, (data_type, value_lambda) in nodes[node_name].items():
+                response[node_name][sensor_name] = {'type': data_type, 'value': value_lambda()}
 
         s.wfile.write(json.dumps(response).encode())
 
 
 nodes = {
     'environment': {
-        'attic_temp': lambda: round(get_1w_sensor("0416561dedff").get_temperature(W1ThermSensor.DEGREES_F) - 3)
+        'attic_temp': ("IntSensor", lambda: round(get_1w_sensor("0416561dedff").get_temperature(W1ThermSensor.DEGREES_F) - 3))
     },
     'devices': {
-        'cpu_temp': lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0])
+        'cpu_temp': ("DoubleSensor", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
     }
 }
 
