@@ -20,19 +20,22 @@ class HttpHandler(BaseHTTPRequestHandler):
         s.send_header('Content-type', 'application/json')
         s.end_headers()
 
-        cpu_temp = subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]
-        (sensor, correction) = sensors['attic']
-        attic_temp = round(correction(sensor.get_temperature(W1ThermSensor.DEGREES_F)))
+        response = {}
+        for node_name, sensors in nodes.items():
+            response[node_name] = {}
+            for sensor_name, value_lambda in nodes[node_name].items():
+                response[node_name][sensor_name] = value_lambda()
 
-        response = {
-            'cpu_temp': float(cpu_temp),
-            'attic': attic_temp
-        }
         s.wfile.write(json.dumps(response).encode())
 
 
-sensors = {
-    'attic': (get_1w_sensor("0416561dedff"), lambda x: x - 3)
+nodes = {
+    'environment': {
+        'attic_temp': lambda: round(get_1w_sensor("0416561dedff").get_temperature(W1ThermSensor.DEGREES_F) - 3)
+    },
+    'devices': {
+        'cpu_temp': lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0])
+    }
 }
 
 
