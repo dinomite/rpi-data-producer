@@ -22,9 +22,9 @@ class HttpHandler(BaseHTTPRequestHandler):
 
         response = {}
         for node_name, sensors in nodes.items():
-            response[node_name] = {}
+            response[node_name] = []
             for sensor_name, (data_type, value_lambda) in nodes[node_name].items():
-                response[node_name][sensor_name] = {'type': data_type, 'value': value_lambda()}
+                response[node_name].append({'name': sensor_name, 'type': data_type, 'value': value_lambda()})
 
         s.wfile.write(json.dumps(response).encode())
 
