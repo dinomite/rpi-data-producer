@@ -3,7 +3,7 @@ import json
 import subprocess
 
 from http.server import BaseHTTPRequestHandler,HTTPServer
-from w1thermsensor import W1ThermSensor, SensorNotReadyError, NoSensorFoundError
+#from w1thermsensor import W1ThermSensor, SensorNotReadyError, NoSensorFoundError
 
 
 def get_1w_sensor(sensor_id):
