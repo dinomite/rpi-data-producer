@@ -20,19 +20,16 @@ class HttpHandler(BaseHTTPRequestHandler):
         s.send_header('Content-type', 'application/json')
         s.end_headers()
 
-        response = {}
+        response = []
         for node_name, sensors in nodes.items():
-            response[node_name] = []
-            for sensor_name, (data_type, value_lambda) in nodes[node_name].items():
-                response[node_name].append({'name': sensor_name, 'type': data_type, 'value': value_lambda()})
+            for sensor_name, (group, data_type, value_lambda) in nodes.items():
+                response.append({'group': group, 'name': sensor_name, 'type': data_type, 'value': value_lambda()})
 
         s.wfile.write(json.dumps(response).encode())
 
 
 nodes = {
-    'devices': {
-        'hostilian_cpu_temp': ("DoubleSensor", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
-    }
+    'hostilian_cpu_temp': ("DEVICES", "DoubleSensor", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
 }
 
 
