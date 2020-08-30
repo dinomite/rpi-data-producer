@@ -27,9 +27,8 @@ class HttpHandler(BaseHTTPRequestHandler):
                 response.append({
                     'group': group,
                     'name': sensor_name,
-                    'values': [
+                    'observations': [
                         {
-                            'type': data_type,
                             'value': value_lambda(),
                             'timestamp': time.time()
                         }
