@@ -40,8 +40,8 @@ class HttpHandler(BaseHTTPRequestHandler):
 
 
 nodes = {
-    'attic_temp': ("ENVIRONMENT", "IntSensor", lambda: round(get_1w_sensor("0416561dedff").get_temperature(W1ThermSensor.DEGREES_F) - 3)),
-    'rpi_zero_cpu_temp': ("DEVICE", "DoubleSensor", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
+    'attic_temp': ("ENVIRONMENT", "IntValue", lambda: round(get_1w_sensor("0416561dedff").get_temperature(W1ThermSensor.DEGREES_F) - 3)),
+    'rpi_zero_cpu_temp': ("DEVICE", "DoubleValue", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
 }
 
 
