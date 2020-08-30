@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 import subprocess
+import time
 
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from w1thermsensor import W1ThermSensor, SensorNotReadyError, NoSensorFoundError
@@ -23,7 +24,17 @@ class HttpHandler(BaseHTTPRequestHandler):
         response = []
         for node_name, sensors in nodes.items():
             for sensor_name, (group, data_type, value_lambda) in nodes.items():
-                response.append({'group': group, 'name': sensor_name, 'type': data_type, 'value': value_lambda()})
+                response.append({
+                    'group': group,
+                    'name': sensor_name,
+                    'values': [
+                        {
+                            'type': data_type,
+                            'value': value_lambda(),
+                            'timestamp': time.time()
+                        }
+                    ]
+                })
 
         s.wfile.write(json.dumps(response).encode())
 
