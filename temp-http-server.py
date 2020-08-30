@@ -40,7 +40,7 @@ class HttpHandler(BaseHTTPRequestHandler):
 
 
 nodes = {
-    'hostilian_cpu_temp': ("DEVICE", "DoubleSensor", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
+    'hostilian_cpu_temp': ("DEVICE", "DoubleValue", lambda: float(subprocess.getoutput('vcgencmd measure_temp').split('=')[1].split("'")[0]))
 }
 
 
